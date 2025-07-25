@@ -1,0 +1,49 @@
+/* Estilos base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Fondo de pantalla completa */
+body,
+#root {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Contenedor principal */
+.app-container {
+  background: url('../../public/images/restaurante.jpg') no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Contenedor del formulario */
+.auth-container {
+  width: 100%;
+  max-width: 1000px;
+  min-height: 600px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Media queries para responsive */
+@media (max-width: 768px) {
+  .auth-container {
+    min-height: 100vh;
+    border-radius: 0;
+  }
+
+  .app-container {
+    padding: 0;
+  }
+}
