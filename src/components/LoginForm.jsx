@@ -89,7 +89,7 @@ const LoginForm = ({ onSetLoading }) => {
     // Cuando no haya errores enviamos la petición a la API
     if (Object.keys(newErrors).length === 0) {
       try {
-        const loginRes = await fetch('http://127.0.0.1:8000/api/v1/login', {
+        const loginRes = await fetch('https://wewelcom-api-production.up.railway.app/api/v1/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),

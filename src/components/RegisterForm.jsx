@@ -135,7 +135,7 @@ const RegisterForm = ({ toggleForm, onSetLoading}) => {
     // Cuando no haya errores enviamos la petición a la API
     if (Object.keys(newErrors).length === 0) {
       try {
-        const registroRes = await fetch('http://127.0.0.1:8000/api/v1/registro', {
+        const registroRes = await fetch('https://wewelcom-api-production.up.railway.app/api/v1/registro', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
@@ -155,7 +155,7 @@ const RegisterForm = ({ toggleForm, onSetLoading}) => {
           });
 
           setTimeout(() => {
-            toggleForm(); // Asumiendo que toggleForm te lleva a la página principal o de login
+            toggleForm(); 
           }, 2500); // Redirigimos luego a la pagina donde mostraremos todos los restaurantes
         } else {
           if (registroData.errores) {
