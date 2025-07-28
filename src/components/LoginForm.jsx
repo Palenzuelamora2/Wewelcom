@@ -3,7 +3,7 @@
 import './AuthStyles.css';
 import React, { useState } from 'react';
 import ErrorTooltip from '../ui/ErrorTooltip'
-
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
@@ -89,7 +89,7 @@ const LoginForm = ({ onSetLoading }) => {
     // Cuando no haya errores enviamos la petición a la API
     if (Object.keys(newErrors).length === 0) {
       try {
-        const loginRes = await fetch('https://wewelcom-api-production.up.railway.app/api/v1/login', {
+        const loginRes = await fetch(`${API_BASE_URL}/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
