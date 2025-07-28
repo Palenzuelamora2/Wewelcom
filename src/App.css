@@ -15,7 +15,7 @@ body,
 
 /* Contenedor principal */
 .app-container {
-  background: url('../../public/images/restaurante.jpg') no-repeat center center fixed;
+  background: url('/restaurante.jpg') no-repeat center center fixed;
   background-size: cover;
   min-height: 100vh;
   display: flex;
