@@ -28,7 +28,6 @@ const RestaurantForm = ({ initialData,  onSubmit, onCancel,isEditing = false }) 
         direccion_restaurante: ''
       });
     }
-    console.log(formData)
     setErrors({}); 
   }, [initialData]);
 
@@ -85,7 +84,7 @@ const RestaurantForm = ({ initialData,  onSubmit, onCancel,isEditing = false }) 
             <input
               type="text"
               id="nombre_restaurante"
-              name="nombre_restaurante" // Nombre del campo para el estado
+              name="nombre_restaurante" 
               value={formData.nombre_restaurante}
               onChange={handleChange}
               placeholder="Ej: La Buena Mesa"
@@ -101,7 +100,7 @@ const RestaurantForm = ({ initialData,  onSubmit, onCancel,isEditing = false }) 
             <input
               type="text"
               id="telefono_restaurante"
-              name="telefono_restaurante" // Nombre del campo para el estado
+              name="telefono_restaurante" 
               value={formData.telefono_restaurante}
               onChange={handleChange}
               placeholder="Ej: +34 912 345 678"
@@ -117,7 +116,7 @@ const RestaurantForm = ({ initialData,  onSubmit, onCancel,isEditing = false }) 
             <input
               type="text"
               id="direccion_restaurante"
-              name="direccion_restaurante" // Nombre del campo para el estado
+              name="direccion_restaurante" 
               value={formData.direccion_restaurante}
               onChange={handleChange}
               placeholder="Ej: Calle Principal 123, Madrid"

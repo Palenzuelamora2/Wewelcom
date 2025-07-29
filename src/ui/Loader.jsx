@@ -1,6 +1,5 @@
 import React from 'react';
 import './Loader.css';
-//Usamos la prop isLoading para que no haya errores y se muestre siempre
 const Loader = ({ isLoading }) => {
     if (!isLoading) {
         return null; // Si isLoading es falso, el componente no renderiza nada

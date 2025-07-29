@@ -150,7 +150,7 @@ const RegisterForm = ({ toggleForm, onSetLoading }) => {
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ email: formData.email, password: formData.password }),
             });
-            const loginData = await loginRes.json(); // CORRECCIÓN: await aquí también
+            const loginData = await loginRes.json(); 
             if (loginRes.ok) {
               sessionStorage.setItem('token', loginData.token); 
               navigate("/restaurantes"); 
@@ -158,12 +158,11 @@ const RegisterForm = ({ toggleForm, onSetLoading }) => {
               setErrors(prev => ({ ...prev, api: loginData.message || 'Error al iniciar sesión después del registro.' }));
             }
           } catch (loginError) {
-            // Captura errores de red o parsing JSON para la petición de login
             setErrors(prev => ({ ...prev, api: 'No se pudo conectar con el servidor para iniciar sesión. Por favor, inténtelo de nuevo.' }));
           }
         } else {
           if (registroData.errores) {
-            // Nos centramos en el email porque es la única validacion que no podemos prever en el frontend.
+            //Comprobamos que el email no exista
             if (registroData.errores.email) {
               setErrors(prev => ({ ...prev, email: "El correo electrónico ya existe. Inténtalo de nuevo" }));
             }

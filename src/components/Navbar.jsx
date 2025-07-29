@@ -3,13 +3,6 @@ import { FaUtensils, FaSearch, FaPlus, FaSignOutAlt } from 'react-icons/fa';
 import '../css/Navbar.css';
 
 const Navbar = ({ onSearch, onCreateRestaurant, onLogout }) => {
-    //Iniciamos el buscador a vacio
-    const [searchQuery, setSearchQuery] = useState('');
-    //Funcion que usaremos despues para el buscador consultando a la API
-    const handleSearch = (e) => {
-        e.preventDefault();
-        onSearch(searchQuery);
-    };
     return (
         <nav className="navbar">
             <a href="#" className="logo">

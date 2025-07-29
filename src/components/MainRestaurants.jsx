@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/MainRestaurants.css';
 import Navbar from './Navbar';
@@ -23,6 +23,7 @@ const MainRestaurants = () => {
     const token = sessionStorage.getItem("token");
     const api_key_desarrollo = "dev_sk_f8d7e6c5b4a3210987654321fedcba9876543210"
     const api_key_produccion = "prod_sk_1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t"
+
     //Array donde guardaremos todos los restaurantes que tengamos.
     const [restaurantes, setRestaurantes] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,12 +53,12 @@ const MainRestaurants = () => {
         }
         try {
             const headers = {
-                'X-API-KEY': "prod_sk_1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t",
+                'X-API-KEY': api_key_produccion,
                 'Accept': 'application/json',
                 "Authorization": `Bearer ${token}`
             };
             //Ruta general para que cargue todos los restaurantes si no hay nada escrito en el buscador.
-            let url = `${API_BASE_URL}/restaurantes`;  // Ruta general
+            let url = `${API_BASE_URL}/restaurantes`;  
             //Ahora si hay algun valor en el buscador cambiamos la ruta por la que consultamos a la api.
             if (query.trim() !== "") {
                 //Usamos encodeURIComponent para proteger la busqueda por si por ejemplo buscamos Pizza & Pasta que no de ningun error al interpretarlo.
@@ -94,7 +95,6 @@ const MainRestaurants = () => {
     };
 
     // debounce con useCallback para que no se cree en cada render, es una libreria de React que permite evitar que cada vez que el usuario escriba llamar a la API y no saturarla por tanto.
-
     const debouncedFetch = useCallback(
         debounce((query) => {
             getAllRestaurants(query);
@@ -120,7 +120,7 @@ const MainRestaurants = () => {
             const headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'X-API-KEY': "prod_sk_1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t",
+                'X-API-KEY': api_key_produccion,
                 "Authorization": `Bearer ${token}`
             };
             if (currentRestaurant) {
@@ -186,10 +186,10 @@ const MainRestaurants = () => {
         });
 
         if (result.isConfirmed) {
-            console.log(id_restaurante);
+            
             try {
                 const headers = {
-                    'X-API-KEY': "prod_sk_1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t",
+                    'X-API-KEY': api_key_produccion,
                     'Accept': 'application/json',
                     "Authorization": `Bearer ${token}`
                 };
@@ -207,7 +207,6 @@ const MainRestaurants = () => {
                     );
                     getAllRestaurants();
                 } else {
-                    // Manejo de errores de la API
                     if (response.status === 401 || response.status === 403) {
                         MySwal.fire({
                             icon: 'error',
@@ -246,15 +245,9 @@ const MainRestaurants = () => {
             const headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'X-API-KEY': "prod_sk_1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t",
+                'X-API-KEY': api_key_produccion,
                 "Authorization": `Bearer ${token}`
             };
-            console.log("🟡 Enviando headers:");
-            console.log({
-                Authorization: `Bearer ${token}`,
-                "X-API-KEY": api_key_produccion,
-                Accept: "application/json"
-            });
             const response = await fetch(`${API_BASE_URL}/logout`,
                 {
                     headers: headers,

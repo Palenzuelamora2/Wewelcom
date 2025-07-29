@@ -1,5 +1,5 @@
 import React from 'react';
-import RestaurantForm from './RestaurantForm'; // Comenta temporalmente
+import RestaurantForm from './RestaurantForm'; 
 import '../css/RestaurantFormModal.css';
 
 const RestaurantFormModal = ({ isOpen, onClose, onSubmit, restaurante}) => {

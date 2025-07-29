@@ -6,16 +6,13 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* Fondo de pantalla completa */
+
 body,
 #root {
   min-height: 100vh;
   width: 100%;
 }
 
-
-
-/* Contenedor del formulario */
 .auth-container {
   width: 100%;
   max-width: 1000px;
@@ -27,7 +24,7 @@ body,
   overflow: hidden;
 }
 
-/* Media queries para responsive */
+
 @media (max-width: 768px) {
   .auth-container {
     min-height: 100vh;
