@@ -52,7 +52,7 @@ const MainRestaurants = () => {
         }
         try {
             const headers = {
-                'X-API-KEY': api_key_produccion,
+                'X-API-KEY': "prod_sk_1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t",
                 'Accept': 'application/json',
                 "Authorization": `Bearer ${token}`
             };
@@ -99,7 +99,7 @@ const MainRestaurants = () => {
             const headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'X-API-KEY': api_key_produccion,
+                'X-API-KEY': "prod_sk_1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t",
                 "Authorization": `Bearer ${token}`
             };
             if (currentRestaurant) {
@@ -168,7 +168,7 @@ const MainRestaurants = () => {
             console.log(id_restaurante);
             try {
                 const headers = {
-                    'X-API-KEY': api_key_produccion,
+                    'X-API-KEY': "prod_sk_1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t",
                     'Accept': 'application/json',
                     "Authorization": `Bearer ${token}`
                 };
@@ -225,7 +225,7 @@ const MainRestaurants = () => {
             const headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'X-API-KEY': api_key_produccion,
+                'X-API-KEY': "prod_sk_1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t",
                 "Authorization": `Bearer ${token}`
             };
             const response = await fetch(`${API_BASE_URL}/logout`,
