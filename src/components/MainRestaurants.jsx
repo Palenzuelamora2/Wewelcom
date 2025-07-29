@@ -17,12 +17,11 @@ const images = [
     'https://images.unsplash.com/photo-1546069901-ba9599a7e63c'
 ];
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
+const API_KEY = import.meta.env.VITE_API_KEY;
 const MainRestaurants = () => {
     const navigate = useNavigate();
     const token = sessionStorage.getItem("token");
-    const api_key_desarrollo = "dev_sk_f8d7e6c5b4a3210987654321fedcba9876543210"
-    const api_key_produccion = "prod_sk_1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t"
+
 
     //Array donde guardaremos todos los restaurantes que tengamos.
     const [restaurantes, setRestaurantes] = useState([]);
@@ -45,31 +44,32 @@ const MainRestaurants = () => {
         setIsModalOpen(false);
         setCurrentRestaurant(null);
     };
-    //Funcion que nos devuelve todos los restaurantes que tengamos en la base de datos ademas le pasamos un parametro de busqueda por si el usuario quiere buscar algun restaurante.
-    const getAllRestaurants = async (query = "") => {
+    //Funcion que nos devuelve todos los restaurantes que tengamos en la base de datos ademas le pasamos un parametro de busqueda por si el usuario quiere buscar algun restaurante.Importante que inicialicemos la query a vacío porque si no crashea al intentar hacer el .trim() debido a que no es una cadena valida 
+    const getAllRestaurants = async (query="") => {
         if (!token) {
-            navigate('/login');
+            navigate('/');
             return;
         }
         try {
             const headers = {
-                'X-API-KEY': api_key_produccion,
+                'X-API-KEY': API_KEY,
                 'Accept': 'application/json',
                 "Authorization": `Bearer ${token}`
             };
             //Ruta general para que cargue todos los restaurantes si no hay nada escrito en el buscador.
-            let url = `${API_BASE_URL}/restaurantes`;  
+            let url = `${API_BASE_URL}/restaurantes`;
             //Ahora si hay algun valor en el buscador cambiamos la ruta por la que consultamos a la api.
             if (query.trim() !== "") {
                 //Usamos encodeURIComponent para proteger la busqueda por si por ejemplo buscamos Pizza & Pasta que no de ningun error al interpretarlo.
-                url = `${API_BASE_URL}/restaurantes/${encodeURIComponent(query)}`;
+                url = `${API_BASE_URL}/buscarrestaurantes/${encodeURIComponent(query)}`;
             }
-
             const response = await fetch(url, { headers });
             const data = await response.json();
             if (response.ok) {
+                //Si data es un array  la variable restaurantes se iguala directamente a data.
+                const restaurantes = Array.isArray(data) ? data : data.restaurantes;
                 // Mapear los nombres de las propiedades de la API a los nombres usados en el frontend
-                const restaurantesMapeados = data.restaurantes.map(res => ({
+                const restaurantesMapeados = restaurantes.map(res => ({
                     id_restaurante: res.id_restaurante,
                     nombre_restaurante: res.nombre_restaurante,
                     direccion_restaurante: res.direccion_restaurante,
@@ -100,15 +100,14 @@ const MainRestaurants = () => {
             getAllRestaurants(query);
         }, 500), []);
 
-    const handleSearchChange = (e) => {
-        const value = e.target.value;
+    const handleSearchChange = (value) => {
         setsearchRestaurant(value);
         debouncedFetch(value);
     };
     //Funcion para enviar el formulario de edicion o de creacion del restaurante.
     const handleSubmitForm = async (formData) => {
         if (!token) {
-            navigate('/login');
+            navigate('/');
             return;
         }
         //Al ser una función que nos puede servir para editar como para crear, creamos estas variables para no repetir codigo.
@@ -120,7 +119,7 @@ const MainRestaurants = () => {
             const headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'X-API-KEY': api_key_produccion,
+                'X-API-KEY': API_KEY,
                 "Authorization": `Bearer ${token}`
             };
             if (currentRestaurant) {
@@ -171,7 +170,7 @@ const MainRestaurants = () => {
     const deleteRestaurant = async (id_restaurante) => {
         // Verificamos que haya token y si no lo hay mandamos a la pagina de login
         if (!token) {
-            navigate('/login');
+            navigate('/');
             return;
         }
         const result = await MySwal.fire({
@@ -186,10 +185,9 @@ const MainRestaurants = () => {
         });
 
         if (result.isConfirmed) {
-            
             try {
                 const headers = {
-                    'X-API-KEY': api_key_produccion,
+                    'X-API-KEY': API_KEY,
                     'Accept': 'application/json',
                     "Authorization": `Bearer ${token}`
                 };
@@ -215,7 +213,7 @@ const MainRestaurants = () => {
                             confirmButtonText: 'Entendido'
                         }).then(() => {
                             sessionStorage.removeItem("token");
-                            navigate('/login');
+                            navigate('/');
                         });
                     } else {
                         MySwal.fire({
@@ -238,14 +236,14 @@ const MainRestaurants = () => {
     };
     const handleLogout = async () => {
         if (!token) {
-            navigate('/login');
+            navigate('/');
             return;
         }
         try {
             const headers = {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'X-API-KEY': api_key_produccion,
+                'X-API-KEY': API_KEY,
                 "Authorization": `Bearer ${token}`
             };
             const response = await fetch(`${API_BASE_URL}/logout`,
