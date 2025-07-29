@@ -28,7 +28,6 @@ const MainRestaurants = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentRestaurant, setCurrentRestaurant] = useState({});
     const [searchRestaurant, setsearchRestaurant] = useState("");
-    const [noResults, setNoResults] = useState(false);
     // Función para abrir el modal en modo creación
     const openCreateRestaurantModal = () => {
         setCurrentRestaurant(null);
@@ -71,11 +70,6 @@ const MainRestaurants = () => {
                 //Si data es un array  la variable restaurantes se iguala directamente a data.
                 const restaurantes = Array.isArray(data) ? data : data.restaurantes;
                 // Mapear los nombres de las propiedades de la API a los nombres usados en el frontend
-                if (restaurantes.length === 0) {
-                    setNoResults(true);
-                } else {
-                    setNoResults(false);
-                }
                 const restaurantesMapeados = restaurantes.map(res => ({
                     id_restaurante: res.id_restaurante,
                     nombre_restaurante: res.nombre_restaurante,
@@ -287,7 +281,6 @@ const MainRestaurants = () => {
                 restaurantes={restaurantes}
                 onEdit={openEditModal}
                 onDelete={deleteRestaurant}
-                noResults={noResults}
             />
             <Footer />
         </>
