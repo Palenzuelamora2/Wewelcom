@@ -1,12 +1,14 @@
 
 
-import './AuthStyles.css';
+import '../../css/AuthStyles.css';
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import ErrorTooltip from '../ui/ErrorTooltip'
+import ErrorTooltip from '../../ui/ErrorTooltip'
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
+
 const validateLoginForm = (data) => {
   const errors = {};
   // email
@@ -23,9 +25,8 @@ const validateLoginForm = (data) => {
   return errors;
 };
 
-
-
 const LoginForm = ({ onSetLoading }) => {
+  const navigate = useNavigate();
   // Estado para los valores del formulario.
   const [formData, setFormData] = useState({
     email: '',
@@ -63,19 +64,16 @@ const LoginForm = ({ onSetLoading }) => {
   // Función para manejar los cambios en los inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-
     cleanErrors(name, value);
   };
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    onSetLoading(true);
     //Limpiamos los errores para no arrastrar errores de intentos anteriores
     setErrors({
       email: '',
@@ -88,6 +86,7 @@ const LoginForm = ({ onSetLoading }) => {
     setErrors(prev => ({ ...prev, ...newErrors }));
     // Cuando no haya errores enviamos la petición a la API
     if (Object.keys(newErrors).length === 0) {
+      onSetLoading(true);
       try {
         const loginRes = await fetch(`${API_BASE_URL}/login`, {
           method: 'POST',
@@ -99,7 +98,7 @@ const LoginForm = ({ onSetLoading }) => {
         if (loginRes.ok) {
           //Guardamos el token de acceso que luego nos permitirá hacer las correspondientes funciones de la página
           sessionStorage.setItem('token', LoginData.token);
-          console.log("Hola");
+          navigate("/restaurantes")
         } else {
           if (loginRes.status === 401) {
             setErrors(prev => ({ ...prev, api: 'Credenciales incorrectas. Por favor, verifica tu correo y contraseña.' }));
@@ -108,7 +107,7 @@ const LoginForm = ({ onSetLoading }) => {
       } catch (error) {
         setErrors(prev => ({ ...prev, api: 'No se pudo conectar con el servidor. Por favor, inténtelo de nuevo.' }));
       } finally {
-          onSetLoading(false); // Quitamos el estado de carga independientemente del exito que haya tenido nuestra petición
+        onSetLoading(false); // Quitamos el estado de carga independientemente del exito que haya tenido nuestra petición
       }
     }
   };

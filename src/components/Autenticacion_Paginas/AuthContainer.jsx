@@ -2,17 +2,19 @@
 import { useState } from 'react';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
-import Loader from '../ui/Loader'
-import './AuthStyles.css';
+import Loader from '../../ui/Loader'
+import '../../css/AuthStyles.css';
 
 const AuthContainer = () => {
+  //Estados para saber si el login esta activo o no y poder ir cambiando entre login y registro
   const [isLoginActive, setIsLoginActive] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-
+  //Función para cambiar entre login y registro.
   const toggleForm = () => {
     setIsLoginActive(!isLoginActive);
   };
+  
   //Función que nos ayuda a saber cuando alguno de los dos hijos está haciendo alguna petición
   const handleSetLoading = (loadingState) => {
     setIsLoading(loadingState);
@@ -20,7 +22,7 @@ const AuthContainer = () => {
 
 
   return (
-    <>
+    <div className='auth-app'>
       <Loader isLoading={isLoading} />
       <div className={`auth-container ${isLoginActive ? '' : 'right-panel-active'}`}>
         <div className="forms-wrapper">
@@ -49,7 +51,7 @@ const AuthContainer = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
 
   );
 };

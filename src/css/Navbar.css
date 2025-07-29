@@ -1,0 +1,205 @@
+.navbar {
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    gap: 1.5rem;
+}
+
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #4a6bff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.logo:hover {
+    color: #3a5bef;
+    transform: translateY(-1px);
+}
+
+.logo-icon {
+    margin-right: 10px;
+    color: #ff7e5f;
+    font-size: 1.5rem;
+}
+
+
+.search-bar {
+    flex-grow: 1;
+    width: 600px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    padding-right: 2.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+    color: black;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #4a6bff;
+    box-shadow: 0 0 0 2px rgba(74, 107, 255, 0.2);
+    background-color: white;
+}
+
+.search-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #777;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0.2rem;
+}
+
+.search-button:hover {
+    color: #4a6bff;
+}
+
+.search-icon {
+    font-size: 1rem;
+}
+
+
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+
+.add-restaurant {
+    background-color: #4a6bff;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.add-restaurant:hover {
+    background-color: #3a5bef;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(74, 107, 255, 0.3);
+}
+
+.add-icon {
+    margin-right: 8px;
+    font-size: 1rem;
+}
+
+
+.logout-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+}
+
+.logout-icon {
+    margin-right: 8px;
+    font-size: 1rem;
+}
+
+@media (max-width: 992px) {
+    .navbar {
+        padding: 1rem;
+    }
+
+    .nav-buttons {
+        gap: 0.75rem;
+    }
+
+    .add-restaurant,
+    .logout-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .search-bar {
+        margin: 0.5rem 0;
+        width: 100%;
+        max-width: 100%;
+        order: 3;
+    }
+
+    .nav-buttons {
+        width: 100%;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+
+    .add-restaurant,
+    .logout-button {
+        flex: 1;
+        justify-content: center;
+        padding: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 1.5rem;
+    }
+
+    .logo-icon {
+        font-size: 1.3rem;
+    }
+
+    .add-restaurant,
+    .logout-button {
+        font-size: 0.8rem;
+    }
+
+    .add-icon,
+    .logout-icon {
+        margin-right: 5px;
+    }
+}
