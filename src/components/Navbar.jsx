@@ -3,6 +3,14 @@ import { FaUtensils, FaSearch, FaPlus, FaSignOutAlt } from 'react-icons/fa';
 import '../css/Navbar.css';
 
 const Navbar = ({ onSearch, onCreateRestaurant, onLogout }) => {
+    //Iniciamos el buscador a vacio
+    const [searchQuery, setSearchQuery] = useState('');
+    //Funcion que usaremos despues para el buscador consultando a la API
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setSearchQuery(value);
+        onSearch(value); 
+    };
     return (
         <nav className="navbar">
             <a href="#" className="logo">
@@ -14,7 +22,7 @@ const Navbar = ({ onSearch, onCreateRestaurant, onLogout }) => {
                     type="text"
                     placeholder="Buscar restaurantes..."
                     value={searchQuery}
-                    onChange={onSearch}
+                    onChange={handleChange}
                     className="search-input"
                 />
                 <button type="submit" className="search-button">
