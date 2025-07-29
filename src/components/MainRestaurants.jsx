@@ -28,6 +28,7 @@ const MainRestaurants = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentRestaurant, setCurrentRestaurant] = useState({});
     const [searchRestaurant, setsearchRestaurant] = useState("");
+    const [noResults, setNoResults] = useState(false);
     // Función para abrir el modal en modo creación
     const openCreateRestaurantModal = () => {
         setCurrentRestaurant(null);
@@ -45,7 +46,7 @@ const MainRestaurants = () => {
         setCurrentRestaurant(null);
     };
     //Funcion que nos devuelve todos los restaurantes que tengamos en la base de datos ademas le pasamos un parametro de busqueda por si el usuario quiere buscar algun restaurante.Importante que inicialicemos la query a vacío porque si no crashea al intentar hacer el .trim() debido a que no es una cadena valida 
-    const getAllRestaurants = async (query="") => {
+    const getAllRestaurants = async (query = "") => {
         if (!token) {
             navigate('/');
             return;
@@ -69,6 +70,11 @@ const MainRestaurants = () => {
                 //Si data es un array  la variable restaurantes se iguala directamente a data.
                 const restaurantes = Array.isArray(data) ? data : data.restaurantes;
                 // Mapear los nombres de las propiedades de la API a los nombres usados en el frontend
+                if (restaurantes.length === 0) {
+                    setNoResults(true);
+                } else {
+                    setNoResults(false);
+                }
                 const restaurantesMapeados = restaurantes.map(res => ({
                     id_restaurante: res.id_restaurante,
                     nombre_restaurante: res.nombre_restaurante,
@@ -76,13 +82,6 @@ const MainRestaurants = () => {
                     telefono_restaurante: res.telefono_restaurante,
                 }));
                 setRestaurantes(restaurantesMapeados);
-            } else {
-                MySwal.fire({
-                    icon: 'error',
-                    title: 'Error al cargar',
-                    text: `Error al cargar restaurantes: ${data.message || 'Error desconocido'}`,
-                    confirmButtonText: 'Entendido'
-                });
             }
         } catch (error) {
             MySwal.fire({
@@ -287,6 +286,7 @@ const MainRestaurants = () => {
                 restaurantes={restaurantes}
                 onEdit={openEditModal}
                 onDelete={deleteRestaurant}
+                noResults={noResults}
             />
             <Footer />
         </>
