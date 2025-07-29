@@ -228,6 +228,12 @@ const MainRestaurants = () => {
                 'X-API-KEY': "prod_sk_1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t",
                 "Authorization": `Bearer ${token}`
             };
+            console.log("🟡 Enviando headers:");
+            console.log({
+                Authorization: `Bearer ${token}`,
+                "X-API-KEY": api_key_produccion,
+                Accept: "application/json"
+            });
             const response = await fetch(`${API_BASE_URL}/logout`,
                 {
                     headers: headers,
