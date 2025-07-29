@@ -9,7 +9,7 @@ import Footer from './Footer';
 import RestaurantFormModal from './RestaurantFormModal';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-
+import debounce from 'lodash.debounce';
 const MySwal = withReactContent(Swal);
 const images = [
     'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4',
@@ -27,7 +27,7 @@ const MainRestaurants = () => {
     const [restaurantes, setRestaurantes] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentRestaurant, setCurrentRestaurant] = useState({});
-
+    const [searchRestaurant, setsearchRestaurant] = useState("");
     // Función para abrir el modal en modo creación
     const openCreateRestaurantModal = () => {
         setCurrentRestaurant(null);
@@ -44,8 +44,8 @@ const MainRestaurants = () => {
         setIsModalOpen(false);
         setCurrentRestaurant(null);
     };
-    //Funcion que nos devuelve todos los restaurantes que tengamos en la base de datos.
-    const getAllRestaurants = async () => {
+    //Funcion que nos devuelve todos los restaurantes que tengamos en la base de datos ademas le pasamos un parametro de busqueda por si el usuario quiere buscar algun restaurante.
+    const getAllRestaurants = async (query = "") => {
         if (!token) {
             navigate('/login');
             return;
@@ -56,7 +56,15 @@ const MainRestaurants = () => {
                 'Accept': 'application/json',
                 "Authorization": `Bearer ${token}`
             };
-            const response = await fetch(`${API_BASE_URL}/restaurantes`, { headers });
+            //Ruta general para que cargue todos los restaurantes si no hay nada escrito en el buscador.
+            let url = `${API_BASE_URL}/restaurantes`;  // Ruta general
+            //Ahora si hay algun valor en el buscador cambiamos la ruta por la que consultamos a la api.
+            if (query.trim() !== "") {
+                //Usamos encodeURIComponent para proteger la busqueda por si por ejemplo buscamos Pizza & Pasta que no de ningun error al interpretarlo.
+                url = `${API_BASE_URL}/restaurantes/${encodeURIComponent(query)}`;
+            }
+
+            const response = await fetch(url, { headers });
             const data = await response.json();
             if (response.ok) {
                 // Mapear los nombres de las propiedades de la API a los nombres usados en el frontend
@@ -83,6 +91,19 @@ const MainRestaurants = () => {
                 confirmButtonText: 'Entendido'
             });
         }
+    };
+
+    // debounce con useCallback para que no se cree en cada render, es una libreria de React que permite evitar que cada vez que el usuario escriba llamar a la API y no saturarla por tanto.
+
+    const debouncedFetch = useCallback(
+        debounce((query) => {
+            getAllRestaurants(query);
+        }, 500), []);
+
+    const handleSearchChange = (e) => {
+        const value = e.target.value;
+        setsearchRestaurant(value);
+        debouncedFetch(value);
     };
     //Funcion para enviar el formulario de edicion o de creacion del restaurante.
     const handleSubmitForm = async (formData) => {
@@ -261,7 +282,7 @@ const MainRestaurants = () => {
     return (
         <>
             <Navbar
-                onSearch={() => console.log("Buscando...")}
+                onSearch={handleSearchChange}
                 onCreateRestaurant={openCreateRestaurantModal}
                 onLogout={handleLogout} />
             <Carousel images={images} />

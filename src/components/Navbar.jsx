@@ -16,22 +16,18 @@ const Navbar = ({ onSearch, onCreateRestaurant, onLogout }) => {
                 <FaUtensils className="logo-icon" />
                 Wewelcom
             </a>
-
-            <form onSubmit={handleSearch}>
-                <div className="search-bar">
-                    <input
-                        type="text"
-                        placeholder="Buscar restaurantes..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="search-input"
-                    />
-                    <button type="submit" className="search-button">
-                        <FaSearch className="search-icon" />
-                    </button>
-                </div>
-            </form>
-
+            <div className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Buscar restaurantes..."
+                    value={searchQuery}
+                    onChange={onSearch}
+                    className="search-input"
+                />
+                <button type="submit" className="search-button">
+                    <FaSearch className="search-icon" />
+                </button>
+            </div>
             <div className="nav-buttons">
                 <button className="add-restaurant" onClick={onCreateRestaurant}>
                     <FaPlus className="add-icon" />
