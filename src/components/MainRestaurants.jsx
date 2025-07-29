@@ -62,7 +62,8 @@ const MainRestaurants = () => {
             //Ahora si hay algun valor en el buscador cambiamos la ruta por la que consultamos a la api.
             if (query.trim() !== "") {
                 //Usamos encodeURIComponent para proteger la busqueda por si por ejemplo buscamos Pizza & Pasta que no de ningun error al interpretarlo.
-                url = `${API_BASE_URL}/buscarrestaurantes/${encodeURIComponent(query)}`;
+                const querySinEspacios = query.replace(/\s+/g, '');
+                url = `${API_BASE_URL}/buscarrestaurantes/${encodeURIComponent(querySinEspacios)}`;
             }
             const response = await fetch(url, { headers });
             const data = await response.json();
