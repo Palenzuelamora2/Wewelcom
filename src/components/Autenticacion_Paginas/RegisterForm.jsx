@@ -189,8 +189,8 @@ const RegisterForm = ({ toggleForm, onSetLoading }) => {
               placeholder="Nombre completo"
               value={formData.name}
               onChange={handleChange}
-
               className={errors.name ? 'input-error-border' : ''}
+              maxLength={255}
             />
           </ErrorTooltip>
         </div>
@@ -204,8 +204,8 @@ const RegisterForm = ({ toggleForm, onSetLoading }) => {
               placeholder="Correo electrónico"
               value={formData.email}
               onChange={handleChange}
-
               className={errors.email ? 'input-error-border' : ''}
+              maxLength={255}
             />
           </ErrorTooltip>
         </div>
@@ -219,8 +219,8 @@ const RegisterForm = ({ toggleForm, onSetLoading }) => {
               placeholder="Contraseña"
               value={formData.password}
               onChange={handleChange}
-
               className={errors.password ? 'input-error-border' : ''}
+              maxLength={255}
             />
           </ErrorTooltip>
         </div>
@@ -234,7 +234,6 @@ const RegisterForm = ({ toggleForm, onSetLoading }) => {
               placeholder="Confirmar contraseña"
               value={formData.password_confirmation}
               onChange={handleChange}
-
               className={errors.password_confirmation ? 'input-error-border' : ''}
             />
           </ErrorTooltip>

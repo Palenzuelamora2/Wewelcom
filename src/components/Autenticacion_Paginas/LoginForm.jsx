@@ -124,8 +124,8 @@ const LoginForm = ({ onSetLoading }) => {
               placeholder="Correo electrónico"
               value={formData.email}
               onChange={handleChange}
-
               className={errors.email ? 'input-error-border' : ''}
+              maxLength={255}
             />
           </ErrorTooltip>
         </div>
@@ -139,6 +139,7 @@ const LoginForm = ({ onSetLoading }) => {
               value={formData.password}
               onChange={handleChange}
               className={errors.password ? 'input-error-border' : ''}
+              maxLength={255}
             />
           </ErrorTooltip>
         </div>

@@ -88,6 +88,7 @@ const RestaurantForm = ({ initialData,  onSubmit, onCancel,isEditing = false }) 
               value={formData.nombre_restaurante}
               onChange={handleChange}
               placeholder="Ej: La Buena Mesa"
+              maxLength={100}
             />
           </div>
           {errors.nombre_restaurante && <span className="error-message">{errors.nombre_restaurante}</span>}
@@ -104,6 +105,7 @@ const RestaurantForm = ({ initialData,  onSubmit, onCancel,isEditing = false }) 
               value={formData.telefono_restaurante}
               onChange={handleChange}
               placeholder="Ej: +34 912 345 678"
+              maxLength={100}
             />
           </div>
           {errors.telefono_restaurante && <span className="error-message">{errors.telefono_restaurante}</span>}
@@ -120,6 +122,7 @@ const RestaurantForm = ({ initialData,  onSubmit, onCancel,isEditing = false }) 
               value={formData.direccion_restaurante}
               onChange={handleChange}
               placeholder="Ej: Calle Principal 123, Madrid"
+              maxLength={100}
             />
           </div>
           {errors.direccion_restaurante && <span className="error-message">{errors.direccion_restaurante}</span>}
